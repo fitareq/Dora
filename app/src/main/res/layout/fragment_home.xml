@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/all_product_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/more_to_love"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold"
+            android:padding="@dimen/_5sdp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/all_product_recycler_view"
+            android:padding="@dimen/_2sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/all_product_label"
+            android:scrollbars="vertical"/>
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Dora</string>
+    <string name="home">Home</string>
+    <string name="message">Message</string>
+    <string name="cart">Cart</string>
+    <string name="account">Account</string>
+    <string name="more_to_love">More to love</string>
+    <string name="product_title">product title</string>
+    <string name="discount">-10%</string>
+    <string name="sold_count">10 sold</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="price">৳120</string>
+    <string name="horizontal_divider">|</string>
+</resources>
