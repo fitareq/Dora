@@ -15,18 +15,19 @@ import com.youthfireit.dora.fragments.AccountFragment;
 import com.youthfireit.dora.fragments.CartFragment;
 import com.youthfireit.dora.fragments.HomeFragment;
 import com.youthfireit.dora.fragments.MessageFragment;
+import com.youthfireit.dora.fragments.ProductDetailsFragment;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.homeFragmentClickListener{
 
 
     private ActivityMainBinding binding;
     private Fragment current, previous;
 
-    private HomeFragment homeFragment = new HomeFragment();
+    private HomeFragment homeFragment = new HomeFragment(this);
     private CartFragment cartFragment = new CartFragment();
     private MessageFragment messageFragment = new MessageFragment();
     private AccountFragment accountFragment = new AccountFragment();
@@ -49,13 +50,14 @@ public class MainActivity extends AppCompatActivity {
 
         current = homeFragment;
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, homeFragment).commit();
-        getSupportFragmentManager().beginTransaction().show(homeFragment).commit();
+        getSupportFragmentManager().beginTransaction().show(current).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, cartFragment).commit();
         getSupportFragmentManager().beginTransaction().hide(cartFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, messageFragment).commit();
         getSupportFragmentManager().beginTransaction().hide(messageFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, accountFragment).commit();
         getSupportFragmentManager().beginTransaction().hide(accountFragment).commit();
+
 
         binding.bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -66,41 +68,52 @@ public class MainActivity extends AppCompatActivity {
                     case NAV_HOME:
 
                         if (!current.equals(homeFragment)) {
+                            getSupportFragmentManager().beginTransaction().hide(current).commit();
                             current = homeFragment;
-                            getSupportFragmentManager().beginTransaction().show(homeFragment).commit();
-                            getSupportFragmentManager().beginTransaction().hide(accountFragment).commit();
-                            getSupportFragmentManager().beginTransaction().hide(messageFragment).commit();
-                            getSupportFragmentManager().beginTransaction().hide(cartFragment).commit();
+                            getSupportFragmentManager().beginTransaction().show(current).commit();
+
+                            //getSupportFragmentManager().beginTransaction().hide(messageFragment).commit();
+                            //getSupportFragmentManager().beginTransaction().hide(cartFragment).commit();
                         }
                         Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
                         break;
                     case NAV_CART:
                         if (!current.equals(cartFragment)) {
+
+                            getSupportFragmentManager().beginTransaction().hide(current).commit();
                             current = cartFragment;
-                            getSupportFragmentManager().beginTransaction().hide(homeFragment).commit();
+                            getSupportFragmentManager().beginTransaction().show(current).commit();
+
+                            /*getSupportFragmentManager().beginTransaction().hide(homeFragment).commit();
                             getSupportFragmentManager().beginTransaction().hide(accountFragment).commit();
                             getSupportFragmentManager().beginTransaction().hide(messageFragment).commit();
-                            getSupportFragmentManager().beginTransaction().show(cartFragment).commit();
+                            getSupportFragmentManager().beginTransaction().show(cartFragment).commit();*/
                         }
                         Toast.makeText(MainActivity.this, "cart", Toast.LENGTH_SHORT).show();
                         break;
                     case NAV_MESSAGE:
                         if (!current.equals(messageFragment)) {
+                            getSupportFragmentManager().beginTransaction().hide(current).commit();
                             current = messageFragment;
-                            getSupportFragmentManager().beginTransaction().hide(homeFragment).commit();
+                            getSupportFragmentManager().beginTransaction().show(current).commit();
+
+                            /*getSupportFragmentManager().beginTransaction().hide(homeFragment).commit();
                             getSupportFragmentManager().beginTransaction().hide(accountFragment).commit();
                             getSupportFragmentManager().beginTransaction().hide(cartFragment).commit();
-                            getSupportFragmentManager().beginTransaction().show(messageFragment).commit();
+                            getSupportFragmentManager().beginTransaction().show(messageFragment).commit();*/
                         }
                         Toast.makeText(MainActivity.this, "message", Toast.LENGTH_SHORT).show();
                         break;
                     case NAV_ACCOUNT:
                         if (!current.equals(accountFragment)) {
+                            getSupportFragmentManager().beginTransaction().hide(current).commit();
                             current = accountFragment;
-                            getSupportFragmentManager().beginTransaction().show(accountFragment).commit();
+                            getSupportFragmentManager().beginTransaction().show(current).commit();
+
+                            /*getSupportFragmentManager().beginTransaction().show(accountFragment).commit();
                             getSupportFragmentManager().beginTransaction().hide(cartFragment).commit();
                             getSupportFragmentManager().beginTransaction().hide(messageFragment).commit();
-                            getSupportFragmentManager().beginTransaction().hide(homeFragment).commit();
+                            getSupportFragmentManager().beginTransaction().hide(homeFragment).commit();*/
                         }
                         Toast.makeText(MainActivity.this, "account", Toast.LENGTH_SHORT).show();
                         break;
@@ -109,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        
+
     }
 
 
@@ -123,10 +136,21 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.main_container, current)
                     .commit();
         } else {
-            current = new HomeFragment();
+            current = new HomeFragment(this);
             loadFragment();
         }
         return true;
+    }
+
+
+
+    @Override
+    public void productClickListener(String details) {
+        getSupportFragmentManager().beginTransaction().hide(current).commit();
+        current = new ProductDetailsFragment(details);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.main_container, current)
+                .commit();
     }
 
 

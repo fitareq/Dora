@@ -1,9 +1,9 @@
-package com.youthfireit.dora.models;
+package com.youthfireit.dora.models.allproducts;
 
 import com.google.gson.annotations.SerializedName;
 
 
-public class ProductLinks {
+public class ProductDataLinks {
     //details reviews related top_from_seller
 
     @SerializedName("details")
@@ -20,7 +20,7 @@ public class ProductLinks {
 
 
 
-    public ProductLinks(String productDetails, String productReviews, String relatedProducts, String topProductsFromSeller) {
+    public ProductDataLinks(String productDetails, String productReviews, String relatedProducts, String topProductsFromSeller) {
 
         this.productDetails = productDetails;
         this.productReviews = productReviews;

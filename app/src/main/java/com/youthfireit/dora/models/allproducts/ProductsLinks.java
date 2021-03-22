@@ -1,9 +1,9 @@
-package com.youthfireit.dora.models;
+package com.youthfireit.dora.models.allproducts;
 
 import com.google.gson.annotations.SerializedName;
 
 
-public class PageLinks {
+public class ProductsLinks {
 // first last prev next
 
     @SerializedName("first")
@@ -20,7 +20,7 @@ public class PageLinks {
 
 
 
-    public PageLinks(String firstPage, String lastPage, String previousPage, String nextPage) {
+    public ProductsLinks(String firstPage, String lastPage, String previousPage, String nextPage) {
 
         this.firstPage = firstPage;
         this.lastPage = lastPage;

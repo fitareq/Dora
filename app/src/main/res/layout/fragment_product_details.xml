@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_5sdp"
+    tools:context=".fragments.ProductDetailsFragment">
+
+    <ImageView
+        android:id="@+id/product_details_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dora_image_placeholder"/>
+
+    <LinearLayout
+        android:id="@+id/product_details_price_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/product_details_image"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/product_details_price"
+            android:layout_weight="0.4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="BDT 100-500"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/product_details_old_price"
+            android:layout_weight="0.3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="BDT 500-1000"/>
+        <TextView
+            android:id="@+id/product_details_discount_percent"
+            android:layout_weight="0.15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:text="@string/discount"/>
+        <FrameLayout
+            android:layout_weight="0.15"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_35sdp">
+            <ImageView
+                android:id="@+id/product_details_add_to_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_outline_favorite_border_24"
+                android:layout_gravity="end"/>
+            <ImageView
+                android:id="@+id/product_details_added_to_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_favorite_24"
+                android:layout_gravity="end"/>
+            <TextView
+                android:id="@+id/product_details_total_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                android:layout_gravity="end|bottom"/>
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_below="@+id/product_details_price_container"
+        android:id="@+id/product_details_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/product_title"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:id="@+id/product_details_rating_container"
+        android:layout_below="@+id/product_details_title"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/product_details_rating_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/RatingBar"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="4.5"
+            />
+        <TextView
+            android:id="@+id/product_details_total_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:text="4.5"/>
+        <TextView
+            android:id="@+id/product_details_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:text="@string/horizontal_divider" />
+
+        <TextView
+            android:id="@+id/product_details_total_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:text="1000 orders"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

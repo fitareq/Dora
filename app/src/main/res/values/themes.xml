@@ -14,4 +14,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="colorControlNormal">#ffc922</item>
+        <item name="colorControlActivated">#d3d3d3</item>
+    </style>
+
 </resources>

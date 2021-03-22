@@ -1,9 +1,9 @@
-package com.youthfireit.dora.models;
+package com.youthfireit.dora.models.allproducts;
 
 import com.google.gson.annotations.SerializedName;
 
 
-public class PageMetaData {
+public class ProductsMetaData {
 
 //current_page from last_page path per_page to total
 
@@ -30,7 +30,7 @@ public class PageMetaData {
 
 
 
-    public PageMetaData(String currentPage, String previousPage, String lastPage, String productsPath, String productPerPage, String productTo, String totalProduct) {
+    public ProductsMetaData(String currentPage, String previousPage, String lastPage, String productsPath, String productPerPage, String productTo, String totalProduct) {
 
         this.currentPage = currentPage;
         this.previousPage = previousPage;

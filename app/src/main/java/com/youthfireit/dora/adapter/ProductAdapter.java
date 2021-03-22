@@ -13,20 +13,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.youthfireit.dora.R;
 import com.youthfireit.dora.constants.ConstantResources;
-import com.youthfireit.dora.models.Products;
+import com.youthfireit.dora.models.allproducts.ProductData;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
-    private  List<Products> products;
+    private  List<ProductData> products;
+
+    private View view;
+    private productClickListener clickListener;
 
 
 
-    public ProductAdapter(List<Products> products) {
+    public ProductAdapter(List<ProductData> products, productClickListener clickListener) {
 
         this.products = products;
+        this.clickListener = clickListener;
     }
 
 
@@ -44,12 +49,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     @Override
     public void onBindViewHolder(@NonNull ProductHolder holder, int position) {
 
-        Products current = products.get(position);
+        ProductData current = products.get(position);
+
+        String details = current.getProductsLinks().getProductDetails();
 
         String image = current.getProductsThumbnailImage();
         String title = current.getProductsName();
-        String price = current.getProductsBasePrice();
-        String old_price = current.getProductsBaseDiscountedPrice();
+        String price = current.getProductsBaseDiscountedPrice();
+        String old_price = current.getProductsBasePrice();
         String sale_count = current.getProductsSold();
 
         String percent = ConstantResources.calculateDiscountPercentage(old_price,price);;
@@ -67,16 +74,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             holder.productPercent.setVisibility(View.GONE);
             holder.productDivider.setVisibility(View.GONE);
         }else {
-            holder.oldPrice.setText("৳"+old_price);
+            holder.oldPrice.setText("৳"+" "+new DecimalFormat("#0.00").format(Double.parseDouble(old_price)));
             holder.productPercent.setText("-"+percent+"%");
             holder.oldPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        holder.productPrice.setText("৳"+price);
+        holder.productPrice.setText("৳"+" "+new DecimalFormat("#0.00").format(Double.parseDouble(price)));
         if (sale_count.equalsIgnoreCase("0"))
             holder.saleCount.setVisibility(View.GONE);
         else
-            holder.saleCount.setText("৳"+sale_count);
+            holder.saleCount.setText(sale_count+" sold");
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onProductClickListener(details);
+            }
+        });
 
     }
 
@@ -105,6 +119,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             saleCount = itemView.findViewById(R.id.product_card_sold_count);
             productPercent = itemView.findViewById(R.id.product_card_discount_percent);
             productDivider = itemView.findViewById(R.id.product_card_divider);
+
+
+           view = itemView;
         }
 
 
@@ -112,5 +129,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
     }
 
-
+public interface productClickListener
+{
+    void onProductClickListener(String details);
+}
 }

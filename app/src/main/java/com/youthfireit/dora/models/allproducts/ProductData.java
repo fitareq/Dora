@@ -1,4 +1,4 @@
-package com.youthfireit.dora.models;
+package com.youthfireit.dora.models.allproducts;
 
 import androidx.room.Entity;
 
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 @Entity(tableName = "products")
-public class Products {
+public class ProductData {
 
 
     @SerializedName("name")
@@ -47,14 +47,14 @@ public class Products {
     private final String productsSold;
 
     @SerializedName("links")
-    private final ProductLinks productsLinks;
+    private final ProductDataLinks productsLinks;
 
 
 
-    public Products(String productsName, List<String> productsPhotos, String productsThumbnailImage,
-                    String productsBasePrice, String productsBaseDiscountedPrice, String isToDaysDeal,
-                    String isFeatured, String productsUnit, String productsDiscount, String productsDiscountType,
-                    String productsRating, String productsSold, ProductLinks productsLinks) {
+    public ProductData(String productsName, List<String> productsPhotos, String productsThumbnailImage,
+                       String productsBasePrice, String productsBaseDiscountedPrice, String isToDaysDeal,
+                       String isFeatured, String productsUnit, String productsDiscount, String productsDiscountType,
+                       String productsRating, String productsSold, ProductDataLinks productsLinks) {
 
         this.productsName = productsName;
         this.productsPhotos = productsPhotos;
@@ -157,7 +157,7 @@ public class Products {
 
 
 
-    public ProductLinks getProductsLinks() {
+    public ProductDataLinks getProductsLinks() {
 
         return productsLinks;
     }
