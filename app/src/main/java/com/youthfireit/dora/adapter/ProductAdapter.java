@@ -63,8 +63,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
         if (image!=null)
         {
-            String s = ConstantResources.BASE_URL+image;
-            Picasso.get().load(s).placeholder(R.drawable.dora_image_placeholder).into(holder.imageView);
+            String s = ConstantResources.IMAGE_BASE_URL+image;
+            Picasso.get().load(s).into(holder.imageView);
         }
 
         holder.productTitle.setText(title);

@@ -80,7 +80,8 @@ public class HomeFragment extends Fragment implements ProductAdapter.productClic
                 if (layoutManager != null &&
                             layoutManager.findLastCompletelyVisibleItemPosition() == productAdapter.getItemCount() - 1) {
                     ++current;
-                    loadProductData();
+                    if(current<=last)
+                     loadProductData();
                 }
             }
         });
@@ -102,17 +103,20 @@ public class HomeFragment extends Fragment implements ProductAdapter.productClic
 
                 if (response.isSuccessful()) {
                     Products data = response.body();
-                    if (data.getIsSuccess().equalsIgnoreCase("true")) {
-                        //List<ProductData> products = data.getProductData();
-                        productDataList.addAll(data.getProductData());
-                        last = Integer.parseInt(data.getProductsMetaData().getLastPage());
-                        //Toast.makeText(getContext(), String.valueOf(last), Toast.LENGTH_SHORT).show();
-                        productAdapter = new ProductAdapter(productDataList, HomeFragment.this);
-                        binding.allProductRecyclerView.setAdapter(productAdapter);
-                        if (current > 1)
-                            productAdapter.notifyDataSetChanged();
-                    } else
-                        Toast.makeText(getContext(), "not successful", Toast.LENGTH_SHORT).show();
+                    if (data!=null) {
+                        if (data.getIsSuccess().equalsIgnoreCase("true")) {
+                            //List<ProductData> products = data.getProductData();
+                            productDataList.addAll(data.getProductData());
+                            last = Integer.parseInt(data.getProductsMetaData().getLastPage());
+                            //Toast.makeText(getContext(), String.valueOf(last), Toast.LENGTH_SHORT).show();
+                            productAdapter = new ProductAdapter(productDataList, HomeFragment.this);
+                            binding.allProductRecyclerView.setAdapter(productAdapter);
+
+                            if (current > 1)
+                                productAdapter.notifyDataSetChanged();
+                        } else
+                            Toast.makeText(getContext(), "not successful", Toast.LENGTH_SHORT).show();
+                    }
                 } else
                     Toast.makeText(getContext(), "response not successful", Toast.LENGTH_SHORT).show();
             }

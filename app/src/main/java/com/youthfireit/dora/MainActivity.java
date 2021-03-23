@@ -21,7 +21,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.homeFragmentClickListener{
+public class MainActivity extends AppCompatActivity implements HomeFragment.homeFragmentClickListener, ProductDetailsFragment.productDetailsClickListener{
 
 
     private ActivityMainBinding binding;
@@ -147,9 +147,20 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.home
     @Override
     public void productClickListener(String details) {
         getSupportFragmentManager().beginTransaction().hide(current).commit();
-        current = new ProductDetailsFragment(details);
+        current = new ProductDetailsFragment(details, this);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.main_container, current)
+                .commit();
+    }
+
+
+
+    @Override
+    public void onBackButtonClickListener() {
+        getSupportFragmentManager().beginTransaction().remove(current).commit();
+        current = homeFragment;
+        getSupportFragmentManager().beginTransaction()
+                .show(current)
                 .commit();
     }
 
