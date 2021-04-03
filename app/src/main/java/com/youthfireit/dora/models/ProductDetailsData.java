@@ -16,16 +16,16 @@ public class ProductDetailsData {
     @SerializedName("added_by")
     private String productAddedBy;
 
-    /*@SerializedName("user")
-    private String userData;*/
+    @SerializedName("user")
+    private ProductUser userData;
 
-    /*@SerializedName("category")
-    private String productCategory;*/
+    /*@SerializedName("category")   
+    private String productCategory;
 
-    /*@SerializedName("sub_category")
-    private String productSubCategory;*/
+    @SerializedName("sub_category")
+    private String productSubCategory;
 
-   /* @SerializedName("brand")
+    @SerializedName("brand")
     private String productBrand;*/
 
     @SerializedName("photos")
@@ -43,8 +43,8 @@ public class ProductDetailsData {
     @SerializedName("price_higher")
     private String productPriceHigher;
 
-   /* @SerializedName("choice_options")
-    private String productChoiceOptions;*/
+   @SerializedName("choice_options")
+    private String productChoiceOptions;
 
     @SerializedName("colors")
     private List<String> productColors;
@@ -96,9 +96,10 @@ public class ProductDetailsData {
 
 
 
-    public ProductDetailsData(String productName, String productAddedBy, List<String> productPhotos,
-                              String productThumbnailImage, List<String> productTags, String productPriceLower,
-                              String productPriceHigher, List<String> productColors, String isTodayDeal,
+    public ProductDetailsData(String productName, String productAddedBy, ProductUser userData,
+                              List<String> productPhotos, String productThumbnailImage,
+                              List<String> productTags, String productPriceLower, String productPriceHigher,
+                              String productChoiceOptions, List<String> productColors, String isTodayDeal,
                               String isFeatured, String availableStock, String unitMeasurement,
                               String productDiscount, String productDiscountType, String productTax,
                               String productTaxType, String productShippingType, String productShippingCost,
@@ -107,11 +108,13 @@ public class ProductDetailsData {
 
         this.productName = productName;
         this.productAddedBy = productAddedBy;
+        this.userData = userData;
         this.productPhotos = productPhotos;
         this.productThumbnailImage = productThumbnailImage;
         this.productTags = productTags;
         this.productPriceLower = productPriceLower;
         this.productPriceHigher = productPriceHigher;
+        this.productChoiceOptions = productChoiceOptions;
         this.productColors = productColors;
         this.isTodayDeal = isTodayDeal;
         this.isFeatured = isFeatured;
@@ -281,6 +284,20 @@ public class ProductDetailsData {
     public String getProductDescription() {
 
         return productDescription;
+    }
+
+
+
+    public ProductUser getUserData() {
+
+        return userData;
+    }
+
+
+
+    public String getProductChoiceOptions() {
+
+        return productChoiceOptions;
     }
 
 

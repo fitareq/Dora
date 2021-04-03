@@ -1,5 +1,7 @@
 package com.youthfireit.dora.network;
 
+import com.youthfireit.dora.models.BannerData;
+import com.youthfireit.dora.models.Categories;
 import com.youthfireit.dora.models.ProductDetails;
 import com.youthfireit.dora.models.allproducts.Products;
 
@@ -19,5 +21,14 @@ public interface DoraAPI {
 
     @GET("products/single/{id}")
     Call<ProductDetails> getSingleProducts(@Path("id") String id);
+
+    @GET("categories")
+    Call<Categories> getAllCategories();
+
+    @GET("products/categories/{id}")
+    Call<String> getProductsByCategory(@Path("id") String id);
+
+    @GET("banners")
+    Call<BannerData> getBanners();
 
 }

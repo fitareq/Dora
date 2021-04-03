@@ -40,9 +40,9 @@ public class ProductDetailsFragment extends Fragment {
 
 
 
-    public ProductDetailsFragment(String details, productDetailsClickListener clickListener) {
+    public ProductDetailsFragment(String product_id, productDetailsClickListener clickListener) {
         // Required empty public constructor
-        this.details = details;
+        this.product_id = product_id;
         this.clickListener = clickListener;
     }
 
@@ -54,7 +54,7 @@ public class ProductDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
-        product_id = details.replace("https://youthfireit.com/dora/api/v1/products/", "");
+        //product_id = details.replace("https://youthfireit.com/dora/api/v1/products/", "");
         binding.productDetailsSpecificationsWebView.getSettings().setJavaScriptEnabled(true);
         //Toast.makeText(getContext(), details, Toast.LENGTH_SHORT).show();
         loadProductDetails();
@@ -73,7 +73,6 @@ public class ProductDetailsFragment extends Fragment {
                     isDescriptionVisible = true;
                     binding.productDetailsSpecificationsWebView.setVisibility(View.VISIBLE);
                 }
-                Toast.makeText(getContext(), "bottom sheet", Toast.LENGTH_SHORT).show();
                 //showBottomSheet();
             }
         });
@@ -85,7 +84,56 @@ public class ProductDetailsFragment extends Fragment {
                 clickListener.onBackButtonClickListener();
             }
         });
+
+
+        binding.productDetailsAddToLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.productDetailsAddToLike.setVisibility(View.GONE);
+                binding.productDetailsAddedToLike.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+        binding.productDetailsAddedToLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.productDetailsAddedToLike.setVisibility(View.GONE);
+                binding.productDetailsAddToLike.setVisibility(View.VISIBLE);
+            }
+        });
+
+        binding.productDetailsAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                productAddToCart();
+            }
+        });
+
+        binding.productDetailsBuyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                productBuyNow();
+            }
+        });
+
         return v;
+    }
+
+
+
+    private void productBuyNow()
+    {
+
+        Toast.makeText(getContext(), "Checkout", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    private void productAddToCart()
+    {
+
+        Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
     }
 
 

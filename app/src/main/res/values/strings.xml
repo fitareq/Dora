@@ -12,4 +12,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="price">৳120</string>
     <string name="horizontal_divider">|</string>
+    <string name="categories">Categories</string>
+    <string name="todo">TODO</string>
 </resources>

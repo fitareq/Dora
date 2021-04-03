@@ -1,6 +1,10 @@
 package com.youthfireit.dora.models.allproducts;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,66 +13,83 @@ import java.util.List;
 @Entity(tableName = "products")
 public class ProductData {
 
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    @SerializedName("id")
+    private  String productId;
 
+
+    @ColumnInfo(name = "name")
     @SerializedName("name")
-    private final String productsName;
+    private  String productsName;
 
+    @ColumnInfo(name = "category_id")
+    @SerializedName("category_id")
+    private String categoryId;
+
+
+    @Ignore
     @SerializedName("photos")
-    private final List<String> productsPhotos;
+    private  List<String> productsPhotos;
 
+    @ColumnInfo(name = "thumbnail_image")
     @SerializedName("thumbnail_image")
-    private final String productsThumbnailImage;
+    private  String productsThumbnailImage;
 
+    @ColumnInfo(name = "base_price")
     @SerializedName("base_price")
-    private final String productsBasePrice;
+    private  String productsBasePrice;
 
+    @ColumnInfo(name = "base_discounted_price")
     @SerializedName("base_discounted_price")
-    private final String productsBaseDiscountedPrice;
+    private  String productsBaseDiscountedPrice;
 
+    @ColumnInfo(name = "todays_deal")
     @SerializedName("todays_deal")
-    private final String isToDaysDeal;
+    private  String isToDaysDeal;
 
+    @ColumnInfo(name = "featured")
     @SerializedName("featured")
-    private final String isFeatured;
+    private  String isFeatured;
 
+    @ColumnInfo(name = "unit")
     @SerializedName("unit")
-    private final String productsUnit;
+    private  String productsUnit;
 
+    @ColumnInfo(name = "discount")
     @SerializedName("discount")
-    private final String productsDiscount;
+    private  String productsDiscount;
 
+    @ColumnInfo(name = "discount_type")
     @SerializedName("discount_type")
-    private final String productsDiscountType;
+    private  String productsDiscountType;
 
+    @ColumnInfo(name = "rating")
     @SerializedName("rating")
-    private final String productsRating;
+    private  String productsRating;
 
+    @ColumnInfo(name = "sales")
     @SerializedName("sales")
-    private final String productsSold;
+    private  String productsSold;
 
+    @Ignore
     @SerializedName("links")
-    private final ProductDataLinks productsLinks;
+    private  ProductDataLinks productsLinks;
 
 
 
-    public ProductData(String productsName, List<String> productsPhotos, String productsThumbnailImage,
-                       String productsBasePrice, String productsBaseDiscountedPrice, String isToDaysDeal,
-                       String isFeatured, String productsUnit, String productsDiscount, String productsDiscountType,
-                       String productsRating, String productsSold, ProductDataLinks productsLinks) {
+    @NonNull
+    public String getProductId() {
 
-        this.productsName = productsName;
-        this.productsPhotos = productsPhotos;
-        this.productsThumbnailImage = productsThumbnailImage;
-        this.productsBasePrice = productsBasePrice;
-        this.productsBaseDiscountedPrice = productsBaseDiscountedPrice;
-        this.isToDaysDeal = isToDaysDeal;
-        this.isFeatured = isFeatured;
-        this.productsUnit = productsUnit;
-        this.productsDiscount = productsDiscount;
-        this.productsDiscountType = productsDiscountType;
-        this.productsRating = productsRating;
-        this.productsSold = productsSold;
-        this.productsLinks = productsLinks;
+        return productId;
+    }
+
+
+
+    public void setProductId(@NonNull String productId) {
+
+        this.productId = productId;
     }
 
 
@@ -80,9 +101,37 @@ public class ProductData {
 
 
 
+    public void setProductsName(String productsName) {
+
+        this.productsName = productsName;
+    }
+
+
+
+    public String getCategoryId() {
+
+        return categoryId;
+    }
+
+
+
+    public void setCategoryId(String categoryId) {
+
+        this.categoryId = categoryId;
+    }
+
+
+
     public List<String> getProductsPhotos() {
 
         return productsPhotos;
+    }
+
+
+
+    public void setProductsPhotos(List<String> productsPhotos) {
+
+        this.productsPhotos = productsPhotos;
     }
 
 
@@ -94,9 +143,23 @@ public class ProductData {
 
 
 
+    public void setProductsThumbnailImage(String productsThumbnailImage) {
+
+        this.productsThumbnailImage = productsThumbnailImage;
+    }
+
+
+
     public String getProductsBasePrice() {
 
         return productsBasePrice;
+    }
+
+
+
+    public void setProductsBasePrice(String productsBasePrice) {
+
+        this.productsBasePrice = productsBasePrice;
     }
 
 
@@ -108,9 +171,23 @@ public class ProductData {
 
 
 
+    public void setProductsBaseDiscountedPrice(String productsBaseDiscountedPrice) {
+
+        this.productsBaseDiscountedPrice = productsBaseDiscountedPrice;
+    }
+
+
+
     public String getIsToDaysDeal() {
 
         return isToDaysDeal;
+    }
+
+
+
+    public void setIsToDaysDeal(String isToDaysDeal) {
+
+        this.isToDaysDeal = isToDaysDeal;
     }
 
 
@@ -122,9 +199,23 @@ public class ProductData {
 
 
 
+    public void setIsFeatured(String isFeatured) {
+
+        this.isFeatured = isFeatured;
+    }
+
+
+
     public String getProductsUnit() {
 
         return productsUnit;
+    }
+
+
+
+    public void setProductsUnit(String productsUnit) {
+
+        this.productsUnit = productsUnit;
     }
 
 
@@ -136,9 +227,23 @@ public class ProductData {
 
 
 
+    public void setProductsDiscount(String productsDiscount) {
+
+        this.productsDiscount = productsDiscount;
+    }
+
+
+
     public String getProductsDiscountType() {
 
         return productsDiscountType;
+    }
+
+
+
+    public void setProductsDiscountType(String productsDiscountType) {
+
+        this.productsDiscountType = productsDiscountType;
     }
 
 
@@ -150,6 +255,13 @@ public class ProductData {
 
 
 
+    public void setProductsRating(String productsRating) {
+
+        this.productsRating = productsRating;
+    }
+
+
+
     public String getProductsSold() {
 
         return productsSold;
@@ -157,9 +269,23 @@ public class ProductData {
 
 
 
+    public void setProductsSold(String productsSold) {
+
+        this.productsSold = productsSold;
+    }
+
+
+
     public ProductDataLinks getProductsLinks() {
 
         return productsLinks;
+    }
+
+
+
+    public void setProductsLinks(ProductDataLinks productsLinks) {
+
+        this.productsLinks = productsLinks;
     }
 
 

@@ -1,31 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.HomeFragment"
-    >
+    android:background="#ffff4444"
+    tools:context=".fragments.HomeFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/all_product_label"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/slider_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/more_to_love"
-            android:textSize="@dimen/_13sdp"
-            android:textStyle="bold"
-            android:padding="@dimen/_5sdp"/>
+            android:layout_margin="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="@dimen/_10sdp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/all_product_recycler_view"
-            android:padding="@dimen/_2sdp"
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/home_slider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_170sdp"
+                android:visibility="visible"
+                app:sliderAnimationDuration="1000"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="800"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="@color/red"
+                app:sliderIndicatorUnselectedColor="#808080"
+                app:sliderScrollTimeInSec="3"
+                app:sliderStartAutoCycle="true" />
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/categories_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/all_product_label"
-            android:scrollbars="vertical"/>
+            android:layout_below="@id/slider_container"
+            android:layout_marginTop="@dimen/_2sdp"
+            app:cardCornerRadius="@dimen/_5sdp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_5sdp">
+
+                <TextView
+                    android:id="@+id/all_categories_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/categories"
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/all_categories_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:scrollbarSize="@dimen/_5sdp"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:scrollbars="horizontal" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/products_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/categories_container"
+            android:layout_marginTop="@dimen/_2sdp"
+            app:cardCornerRadius="@dimen/_5sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_5sdp">
+
+                <TextView
+                    android:id="@+id/all_product_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/more_to_love"
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/all_product_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
     </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

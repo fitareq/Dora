@@ -8,16 +8,26 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
+import com.youthfireit.dora.adapter.BannerAdapter;
+import com.youthfireit.dora.adapter.CategoriesAdapter;
 import com.youthfireit.dora.adapter.ProductAdapter;
 import com.youthfireit.dora.databinding.FragmentHomeBinding;
+import com.youthfireit.dora.models.BannerData;
+import com.youthfireit.dora.models.CategoriesData;
 import com.youthfireit.dora.models.allproducts.ProductData;
 import com.youthfireit.dora.models.allproducts.Products;
 import com.youthfireit.dora.network.APIInstance;
 import com.youthfireit.dora.network.DoraAPI;
+import com.youthfireit.dora.viewmodels.HomeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,17 +37,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeFragment extends Fragment implements ProductAdapter.productClickListener {
+public class HomeFragment extends Fragment implements
+        ProductAdapter.productClickListener, CategoriesAdapter.categoriesClickListener
+{
 
 
     private FragmentHomeBinding binding;
     private ProductAdapter productAdapter;
+    private CategoriesAdapter categoriesAdapter;
     private DoraAPI api;
-    private RecyclerView.LayoutManager productsManager;
+    private RecyclerView.LayoutManager productsManager, categoryManager;
     private int current = 1, last;
     List<ProductData> productDataList = new ArrayList<>();
     private homeFragmentClickListener clickListener;
+    private HomeViewModel viewModel;
 
+    private BannerAdapter bannerAdapter;
 
 
     public HomeFragment(homeFragmentClickListener clickListener) {
@@ -54,11 +69,45 @@ public class HomeFragment extends Fragment implements ProductAdapter.productClic
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
+
+
+
+        binding.homeSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        binding.homeSlider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
+        binding.homeSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        binding.homeSlider.startAutoCycle();
+
+        binding.allCategoriesRecyclerView.setHasFixedSize(true);
+        binding.allCategoriesRecyclerView.setNestedScrollingEnabled(false);
+        categoryManager = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        binding.allCategoriesRecyclerView.setLayoutManager(categoryManager);
+
         binding.allProductRecyclerView.setHasFixedSize(true);
         binding.allProductRecyclerView.setNestedScrollingEnabled(false);
         productsManager = new GridLayoutManager(getContext(), 2);
         binding.allProductRecyclerView.setLayoutManager(productsManager);
-        loadProductData();
+        //loadProductData();
+
+        loadBannerData();
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        viewModel.getProducts().observe(getViewLifecycleOwner(), new Observer<List<ProductData>>() {
+            @Override
+            public void onChanged(List<ProductData> productData) {
+                productAdapter = new ProductAdapter(productData, HomeFragment.this);
+                binding.allProductRecyclerView.setAdapter(productAdapter);
+            }
+        });
+
+
+
+        viewModel.getCategories().observe(getViewLifecycleOwner(), new Observer<List<CategoriesData>>() {
+            @Override
+            public void onChanged(List<CategoriesData> categoriesData) {
+                categoriesAdapter = new CategoriesAdapter(categoriesData, HomeFragment.this);
+                binding.allCategoriesRecyclerView.setAdapter(categoriesAdapter);
+            }
+        });
+/*
 
         binding.allProductRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -85,11 +134,37 @@ public class HomeFragment extends Fragment implements ProductAdapter.productClic
                 }
             }
         });
+*/
 
 
        // Toast.makeText(getContext(), String.valueOf(last), Toast.LENGTH_SHORT).show();
 
         return v;
+    }
+
+
+
+    private void loadBannerData() {
+        APIInstance.getInstance().api().getBanners().enqueue(new Callback<BannerData>() {
+            @Override
+            public void onResponse(Call<BannerData> call, Response<BannerData> response) {
+                if (response.isSuccessful())
+                    if (response.body()!=null)
+                        if (response.body().getIsSuccess().equalsIgnoreCase("true"))
+                        {
+                            bannerAdapter = new BannerAdapter(response.body().getBannersList());
+                            binding.homeSlider.setSliderAdapter(bannerAdapter);
+                        }
+            }
+
+
+
+            @Override
+            public void onFailure(Call<BannerData> call, Throwable t) {
+
+            }
+        });
+
     }
 
 
@@ -134,16 +209,25 @@ public class HomeFragment extends Fragment implements ProductAdapter.productClic
 
 
     @Override
-    public void onProductClickListener(String details) {
+    public void onProductClickListener(String id) {
        /* getParentFragmentManager().beginTransaction().add(R.id.main_container, new ProductDetailsFragment(details)).commit();
         Toast.makeText(getContext(), details, Toast.LENGTH_SHORT).show();*/
-        clickListener.productClickListener(details);
+        clickListener.productClickListener(id);
     }
+
+
+
+    @Override
+    public void onCategoriesClickListener(String id) {
+        clickListener.categoriesClickListener(id);
+    }
+
 
 
     public interface homeFragmentClickListener
     {
-        void productClickListener(String details);
+        void productClickListener(String id);
+        void categoriesClickListener(String id);
     }
 
 

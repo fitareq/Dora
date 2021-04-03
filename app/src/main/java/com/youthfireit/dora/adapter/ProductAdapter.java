@@ -21,7 +21,8 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
-    private  List<ProductData> products;
+
+    private List<ProductData> products;
 
     private View view;
     private productClickListener clickListener;
@@ -40,7 +41,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     @Override
     public ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.products_card,null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.products_card, null);
         return new ProductHolder(v);
     }
 
@@ -51,7 +52,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
         ProductData current = products.get(position);
 
-        String details = current.getProductsLinks().getProductDetails();
+        String id = current.getProductId();
 
         String image = current.getProductsThumbnailImage();
         String title = current.getProductsName();
@@ -59,36 +60,36 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         String old_price = current.getProductsBasePrice();
         String sale_count = current.getProductsSold();
 
-        String percent = ConstantResources.calculateDiscountPercentage(old_price,price);;
+        String percent = ConstantResources.calculateDiscountPercentage(old_price, price);
+        ;
 
-        if (image!=null)
-        {
-            String s = ConstantResources.IMAGE_BASE_URL+image;
+        if (image != null) {
+            String s = ConstantResources.IMAGE_BASE_URL + image;
             Picasso.get().load(s).into(holder.imageView);
         }
 
         holder.productTitle.setText(title);
-        if (old_price.equalsIgnoreCase(price))
-        {
+        if (old_price.equalsIgnoreCase(price)) {
             holder.oldPrice.setVisibility(View.GONE);
             holder.productPercent.setVisibility(View.GONE);
             holder.productDivider.setVisibility(View.GONE);
-        }else {
-            holder.oldPrice.setText("৳"+" "+new DecimalFormat("#0.00").format(Double.parseDouble(old_price)));
-            holder.productPercent.setText("-"+percent+"%");
+        } else {
+            holder.oldPrice.setText("৳" + " " + new DecimalFormat("#0.00").format(Double.parseDouble(old_price)));
+            holder.productPercent.setText("-" + percent + "%");
             holder.oldPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        holder.productPrice.setText("৳"+" "+new DecimalFormat("#0.00").format(Double.parseDouble(price)));
+        holder.productPrice.setText("৳" + " " + new DecimalFormat("#0.00").format(Double.parseDouble(price)));
         if (sale_count.equalsIgnoreCase("0"))
             holder.saleCount.setVisibility(View.GONE);
         else
-            holder.saleCount.setText(sale_count+" sold");
+            holder.saleCount.setText(sale_count + " sold");
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onProductClickListener(details);
+
+                clickListener.onProductClickListener(id);
             }
         });
 
@@ -103,11 +104,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     }
 
 
-    public class ProductHolder extends RecyclerView.ViewHolder
-    {
+
+    public class ProductHolder extends RecyclerView.ViewHolder {
+
 
         public ImageView imageView;
         public TextView productTitle, productPrice, oldPrice, saleCount, productPercent, productDivider;
+
+
+
         public ProductHolder(@NonNull View itemView) {
 
             super(itemView);
@@ -121,7 +126,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             productDivider = itemView.findViewById(R.id.product_card_divider);
 
 
-           view = itemView;
+            view = itemView;
         }
 
 
@@ -129,8 +134,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
     }
 
-public interface productClickListener
-{
-    void onProductClickListener(String details);
-}
+
+    public interface productClickListener {
+
+
+        void onProductClickListener(String id);
+
+
+    }
+
+
+
+
 }
