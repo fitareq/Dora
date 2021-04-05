@@ -54,6 +54,7 @@ public class ProductDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
+        binding.productDetailsBack.setVisibility(View.GONE);
         //product_id = details.replace("https://youthfireit.com/dora/api/v1/products/", "");
         binding.productDetailsSpecificationsWebView.getSettings().setJavaScriptEnabled(true);
         //Toast.makeText(getContext(), details, Toast.LENGTH_SHORT).show();
@@ -183,10 +184,13 @@ public class ProductDetailsFragment extends Fragment {
                                     binding.productDetailsTotalRating.setText(total_rating_count);
 
                                     if (product_description != null) {
+                                        /*product_description = product_description.replaceAll("<.*?>", "");
+                                        binding.productDetailsDescription.setText(product_description);*/
                                         binding.productDetailsSpecificationsWebView.loadData(product_description, "text/html; charset=utf-8", "UTF-8");
                                     }
 
                                     binding.progressBar.setVisibility(View.GONE);
+                                    binding.productDetailsBack.setVisibility(View.VISIBLE);
                                     binding.nestedScroll.setVisibility(View.VISIBLE);
                                 }
                             }

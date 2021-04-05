@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/nested_scroll"
-        android:visibility="visible">
+        android:layout_marginBottom="@dimen/_31sdp"
+        android:visibility="gone">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -151,12 +152,21 @@
             android:id="@+id/product_details_specifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Specifications"
+            android:text="Description"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
             android:layout_below="@id/product_details_rating_container"
             android:padding="@dimen/_5sdp"
             app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+
+            <TextView
+                android:id="@+id/product_details_description"
+                android:layout_below="@+id/product_details_specifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:text="description"/>
 
         <WebView
             android:visibility="gone"
