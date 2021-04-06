@@ -54,14 +54,15 @@ public class ProductDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
-        binding.productDetailsBack.setVisibility(View.GONE);
+        binding.productDetailsAppbar.setVisibility(View.GONE);
+        binding.nestedScroll.setVisibility(View.GONE);
         //product_id = details.replace("https://youthfireit.com/dora/api/v1/products/", "");
         binding.productDetailsSpecificationsWebView.getSettings().setJavaScriptEnabled(true);
         //Toast.makeText(getContext(), details, Toast.LENGTH_SHORT).show();
         loadProductDetails();
 
 
-        binding.productDetailsSpecifications.setOnClickListener(new View.OnClickListener() {
+       /* binding.productDetailsSpecifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -76,10 +77,10 @@ public class ProductDetailsFragment extends Fragment {
                 }
                 //showBottomSheet();
             }
-        });
+        });*/
 
 
-        binding.productDetailsBack.setOnClickListener(new View.OnClickListener() {
+        binding.productDetailsToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickListener.onBackButtonClickListener();
@@ -177,7 +178,9 @@ public class ProductDetailsFragment extends Fragment {
                                         product_image = ConstantResources.IMAGE_BASE_URL + product_image;
                                         Picasso.get().load(product_image).into(binding.productDetailsImage);
                                     }
-                                    binding.productDetailsTitle.setText(product_title);
+
+                                    binding.productDetailsCollapsingToolbarLayout.setTitle(product_title);
+                                    //binding.productDetailsTitle.setText(product_title);
                                     binding.productDetailsPrice.setText(price);
                                     binding.productDetailsTotalOrder.setText(number_of_sales + " sold");
                                     binding.productDetailsRatingStar.setRating(Float.parseFloat(average_rating));
@@ -190,7 +193,8 @@ public class ProductDetailsFragment extends Fragment {
                                     }
 
                                     binding.progressBar.setVisibility(View.GONE);
-                                    binding.productDetailsBack.setVisibility(View.VISIBLE);
+                                   // binding.productDetailsBack.setVisibility(View.VISIBLE);
+                                    binding.productDetailsAppbar.setVisibility(View.VISIBLE);
                                     binding.nestedScroll.setVisibility(View.VISIBLE);
                                 }
                             }
@@ -203,6 +207,9 @@ public class ProductDetailsFragment extends Fragment {
                     @Override
                     public void onFailure(Call<ProductDetails> call, Throwable t) {
 
+                        binding.progressBar.setVisibility(View.GONE);
+                        binding.productDetailsErrorMessage.setText(t.getMessage());
+                        binding.productDetailsError.setVisibility(View.VISIBLE);
                         Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
