@@ -56,33 +56,15 @@ public class ProductDetailsFragment extends Fragment {
         View v = binding.getRoot();
         binding.productDetailsAppbar.setVisibility(View.GONE);
         binding.nestedScroll.setVisibility(View.GONE);
-        //product_id = details.replace("https://youthfireit.com/dora/api/v1/products/", "");
         binding.productDetailsSpecificationsWebView.getSettings().setJavaScriptEnabled(true);
-        //Toast.makeText(getContext(), details, Toast.LENGTH_SHORT).show();
+
         loadProductDetails();
-
-
-       /* binding.productDetailsSpecifications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (isDescriptionVisible) {
-                    binding.productDetailsSpecifications.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_keyboard_arrow_down_24, 0);
-                    isDescriptionVisible = false;
-                    binding.productDetailsSpecificationsWebView.setVisibility(View.GONE);
-                } else {
-                    binding.productDetailsSpecifications.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_keyboard_arrow_up_24, 0);
-                    isDescriptionVisible = true;
-                    binding.productDetailsSpecificationsWebView.setVisibility(View.VISIBLE);
-                }
-                //showBottomSheet();
-            }
-        });*/
 
 
         binding.productDetailsToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 clickListener.onBackButtonClickListener();
             }
         });
@@ -91,6 +73,7 @@ public class ProductDetailsFragment extends Fragment {
         binding.productDetailsAddToLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 binding.productDetailsAddToLike.setVisibility(View.GONE);
                 binding.productDetailsAddedToLike.setVisibility(View.VISIBLE);
             }
@@ -100,6 +83,7 @@ public class ProductDetailsFragment extends Fragment {
         binding.productDetailsAddedToLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 binding.productDetailsAddedToLike.setVisibility(View.GONE);
                 binding.productDetailsAddToLike.setVisibility(View.VISIBLE);
             }
@@ -108,6 +92,7 @@ public class ProductDetailsFragment extends Fragment {
         binding.productDetailsAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 productAddToCart();
             }
         });
@@ -115,6 +100,7 @@ public class ProductDetailsFragment extends Fragment {
         binding.productDetailsBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 productBuyNow();
             }
         });
@@ -124,16 +110,14 @@ public class ProductDetailsFragment extends Fragment {
 
 
 
-    private void productBuyNow()
-    {
+    private void productBuyNow() {
 
         Toast.makeText(getContext(), "Checkout", Toast.LENGTH_SHORT).show();
     }
 
 
 
-    private void productAddToCart()
-    {
+    private void productAddToCart() {
 
         Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
     }
@@ -154,7 +138,7 @@ public class ProductDetailsFragment extends Fragment {
 
                                 if (data.getIsSuccess().equalsIgnoreCase("true")) {
                                     ProductDetailsData productDetailsData = data.getProductData().get(0);
-                                    //Toast.makeText(getContext(), data.getProductData().get(0).getProductName(), Toast.LENGTH_SHORT).show();
+
                                     product_description = productDetailsData.getProductDescription();
                                     product_image = productDetailsData.getProductThumbnailImage();
                                     product_title = productDetailsData.getProductName();
@@ -180,7 +164,6 @@ public class ProductDetailsFragment extends Fragment {
                                     }
 
                                     binding.productDetailsCollapsingToolbarLayout.setTitle(product_title);
-                                    //binding.productDetailsTitle.setText(product_title);
                                     binding.productDetailsPrice.setText(price);
                                     binding.productDetailsTotalOrder.setText(number_of_sales + " sold");
                                     binding.productDetailsRatingStar.setRating(Float.parseFloat(average_rating));
@@ -193,7 +176,7 @@ public class ProductDetailsFragment extends Fragment {
                                     }
 
                                     binding.progressBar.setVisibility(View.GONE);
-                                   // binding.productDetailsBack.setVisibility(View.VISIBLE);
+                                    // binding.productDetailsBack.setVisibility(View.VISIBLE);
                                     binding.productDetailsAppbar.setVisibility(View.VISIBLE);
                                     binding.nestedScroll.setVisibility(View.VISIBLE);
                                 }
@@ -235,10 +218,17 @@ public class ProductDetailsFragment extends Fragment {
 
 
 
-    public interface productDetailsClickListener
-    {
+    public interface productDetailsClickListener {
+
+
         void onBackButtonClickListener();
+
+
+
+
     }
+
+
 
 
 }
