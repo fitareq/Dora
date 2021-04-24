@@ -23,13 +23,14 @@ import java.util.List;
 public class CategoryWiseProductsFragment extends Fragment implements ProductAdapter.productClickListener {
 
 
-
     private String categoryId;
     private FragmentCategoryWiseProductsBinding binding;
     private CategoryWiseProductsViewModel viewModel;
     private ProductAdapter productAdapter;
     private RecyclerView.LayoutManager manager;
     private CategoryWiseProductsFragmentClickListener clickListener;
+
+
 
     public CategoryWiseProductsFragment(String categoryId, CategoryWiseProductsFragmentClickListener clickListener) {
         // Required empty public constructor
@@ -43,10 +44,10 @@ public class CategoryWiseProductsFragment extends Fragment implements ProductAda
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentCategoryWiseProductsBinding.inflate(inflater,container,false);
+        binding = FragmentCategoryWiseProductsBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
-        manager = new GridLayoutManager(getContext(),2);
+        manager = new GridLayoutManager(getContext(), 2);
 
         binding.categoryWiseAllProductsRview.setHasFixedSize(true);
         binding.categoryWiseAllProductsRview.setLayoutManager(manager);
@@ -55,11 +56,18 @@ public class CategoryWiseProductsFragment extends Fragment implements ProductAda
         viewModel.getProducts().observe(getViewLifecycleOwner(), new Observer<List<ProductData>>() {
             @Override
             public void onChanged(List<ProductData> productData) {
-                productAdapter = new ProductAdapter(productData,CategoryWiseProductsFragment.this);
+
+                productAdapter = new ProductAdapter(productData, CategoryWiseProductsFragment.this);
                 binding.categoryWiseAllProductsRview.setAdapter(productAdapter);
             }
         });
 
+        binding.categoryWiseToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onCWBackBtnClick();
+            }
+        });
         return v;
     }
 
@@ -67,13 +75,24 @@ public class CategoryWiseProductsFragment extends Fragment implements ProductAda
 
     @Override
     public void onProductClickListener(String id) {
+
         clickListener.categoryWiseProductClickListener(id);
     }
 
 
-    public interface CategoryWiseProductsFragmentClickListener
-    {
+
+    public interface CategoryWiseProductsFragmentClickListener {
+
+
         void categoryWiseProductClickListener(String id);
+        void onCWBackBtnClick();
+
+
+
+
     }
+
+
+
 
 }

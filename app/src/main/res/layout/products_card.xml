@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_2sdp"
         app:cardCornerRadius="@dimen/_8sdp">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
@@ -21,7 +21,7 @@
 
             <ImageView
                 android:id="@+id/product_card_image"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/_140sdp"
                 android:layout_height="@dimen/_120sdp"
                 android:src="@drawable/dora_image_placeholder"/>
 
@@ -29,25 +29,20 @@
                 android:id="@+id/product_card_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:text="@string/product_title"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/product_card_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
                 android:text="@string/price" />
 
             <LinearLayout
                 android:id="@+id/product_card_old_price_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -79,8 +74,6 @@
                 android:id="@+id/product_card_sold_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
                 android:text="@string/sold_count" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

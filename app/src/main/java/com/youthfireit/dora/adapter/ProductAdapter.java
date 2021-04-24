@@ -61,7 +61,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         String sale_count = current.getProductsSold();
 
         String percent = ConstantResources.calculateDiscountPercentage(old_price, price);
-        ;
 
         if (image != null) {
             String s = ConstantResources.IMAGE_BASE_URL + image;

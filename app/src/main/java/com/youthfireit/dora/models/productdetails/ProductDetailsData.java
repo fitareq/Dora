@@ -1,4 +1,4 @@
-package com.youthfireit.dora.models;
+package com.youthfireit.dora.models.productdetails;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -47,7 +47,7 @@ public class ProductDetailsData {
     private String productPriceHigher;
 
     @SerializedName("choice_options")
-    private List<String> productChoiceOptions;
+    private List<ChoiceOption> productChoiceOptions;
 
     @SerializedName("colors")
     private List<String> productColors;
@@ -225,14 +225,14 @@ public class ProductDetailsData {
 
 
 
-    public List<String> getProductChoiceOptions() {
+    public List<ChoiceOption> getProductChoiceOptions() {
 
         return productChoiceOptions;
     }
 
 
 
-    public void setProductChoiceOptions(List<String> productChoiceOptions) {
+    public void setProductChoiceOptions(List<ChoiceOption> productChoiceOptions) {
 
         this.productChoiceOptions = productChoiceOptions;
     }

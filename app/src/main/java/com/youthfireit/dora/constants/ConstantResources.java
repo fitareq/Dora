@@ -12,4 +12,12 @@ public class ConstantResources {
         double percent = (pOld - pNew) / pOld * 100;
         return (percent>0)?String.valueOf(Math.round(percent)):"0";
     }
+    public static String calculateDiscountAmountFromPercent(String price, String percent)
+    {
+        double p;
+        int per;
+        p = Double.parseDouble(price);
+        per = Integer.parseInt(percent);
+        return String.valueOf(p-((p*per)/100.0));
+    }
 }

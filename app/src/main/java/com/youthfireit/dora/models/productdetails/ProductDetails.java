@@ -1,4 +1,4 @@
-package com.youthfireit.dora.models;
+package com.youthfireit.dora.models.productdetails;
 
 import com.google.gson.annotations.SerializedName;
 

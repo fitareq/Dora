@@ -2,6 +2,7 @@ package com.youthfireit.dora;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
@@ -25,8 +26,7 @@ import java.util.Deque;
 public class MainActivity extends AppCompatActivity
         implements HomeFragment.homeFragmentClickListener,
                            ProductDetailsFragment.productDetailsClickListener,
-                           CategoryWiseProductsFragment.CategoryWiseProductsFragmentClickListener
-{
+                           CategoryWiseProductsFragment.CategoryWiseProductsFragmentClickListener {
 
 
     private ActivityMainBinding binding;
@@ -51,8 +51,9 @@ public class MainActivity extends AppCompatActivity
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View v = binding.getRoot();
         setContentView(v);
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        setSupportActionBar(binding.homeToolbar);
+        //setSupportActionBar(binding.homeToolbar);
         binding.homeToolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         current = homeFragment;
@@ -64,7 +65,6 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().hide(messageFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, accountFragment).commit();
         getSupportFragmentManager().beginTransaction().hide(accountFragment).commit();
-
 
 
         binding.bottomNav.getOrCreateBadge(R.id.bottom_nav_message).setNumber(5);
@@ -129,10 +129,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
-
-
     @Override
     public void productClickListener(String id) {
 
@@ -149,10 +145,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void categoriesClickListener(String id) {
+
         binding.bottomNav.setVisibility(View.VISIBLE);
-        binding.toolbarLayout.setVisibility(View.VISIBLE);
+        binding.toolbarLayout.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().hide(current).commit();
-        current = new CategoryWiseProductsFragment(id,this);
+        current = new CategoryWiseProductsFragment(id, this);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.main_container, current)
                 .commit();
@@ -175,8 +172,30 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
+    public void onRelatedProductClickListener(String id) {
+
+        getSupportFragmentManager().beginTransaction().remove(current).commit();
+        current = new ProductDetailsFragment(id, this);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.main_container, current)
+                .commit();
+    }
+
+
+
+    @Override
     public void categoryWiseProductClickListener(String id) {
+
         productClickListener(id);
+    }
+
+
+
+    @Override
+    public void onCWBackBtnClick() {
+        getSupportFragmentManager().beginTransaction().remove(current).commit();
+        current = homeFragment;
+        getSupportFragmentManager().beginTransaction().show(current).commit();
     }
 
 
