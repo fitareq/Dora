@@ -15,11 +15,13 @@ import com.youthfireit.dora.databinding.FragmentHomeBinding;
 
 public class AccountFragment extends Fragment {
     private FragmentAccountBinding binding;
+    private accountEventListener eventListener;
 
 
 
-    public AccountFragment() {
+    public AccountFragment(accountEventListener eventListener) {
         // Required empty public constructor
+        this.eventListener = eventListener;
     }
 
 
@@ -29,10 +31,15 @@ public class AccountFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentAccountBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
+        eventListener.onUserNotLoggedInListener();
         return v;
     }
 
 
+    public interface accountEventListener
+    {
+        void onUserNotLoggedInListener();
+    }
 
 
 }

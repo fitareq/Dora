@@ -21,7 +21,8 @@
                 android:id="@+id/home_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="Dora" />
+                app:title="Dora"
+                app:titleTextColor="@color/white"/>
         </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout

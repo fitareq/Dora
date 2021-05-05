@@ -16,8 +16,10 @@ import com.youthfireit.dora.fragments.AccountFragment;
 import com.youthfireit.dora.fragments.CartFragment;
 import com.youthfireit.dora.fragments.CategoryWiseProductsFragment;
 import com.youthfireit.dora.fragments.HomeFragment;
+import com.youthfireit.dora.fragments.LoginFragment;
 import com.youthfireit.dora.fragments.MessageFragment;
 import com.youthfireit.dora.fragments.ProductDetailsFragment;
+import com.youthfireit.dora.fragments.RegistrationFragment;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -26,7 +28,10 @@ import java.util.Deque;
 public class MainActivity extends AppCompatActivity
         implements HomeFragment.homeFragmentClickListener,
                            ProductDetailsFragment.productDetailsClickListener,
-                           CategoryWiseProductsFragment.CategoryWiseProductsFragmentClickListener {
+                           CategoryWiseProductsFragment.CategoryWiseProductsFragmentClickListener,
+                           RegistrationFragment.registrationEventListener,
+                AccountFragment.accountEventListener
+{
 
 
     private ActivityMainBinding binding;
@@ -35,12 +40,15 @@ public class MainActivity extends AppCompatActivity
     private HomeFragment homeFragment = new HomeFragment(this);
     private CartFragment cartFragment = new CartFragment();
     private MessageFragment messageFragment = new MessageFragment();
-    private AccountFragment accountFragment = new AccountFragment();
+    private AccountFragment accountFragment = new AccountFragment(this);
+    private LoginFragment loginFragment = new LoginFragment();
+    private RegistrationFragment registrationFragment = new RegistrationFragment(this);
 
     private final int NAV_HOME = R.id.bottom_nav_home;
     private final int NAV_CART = R.id.bottom_nav_cart;
     private final int NAV_MESSAGE = R.id.bottom_nav_message;
     private final int NAV_ACCOUNT = R.id.bottom_nav_account;
+
 
 
 
@@ -57,15 +65,19 @@ public class MainActivity extends AppCompatActivity
         binding.homeToolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         current = homeFragment;
-        getSupportFragmentManager().beginTransaction().add(R.id.main_container, homeFragment).commit();
-        getSupportFragmentManager().beginTransaction().show(current).commit();
+
+       // getSupportFragmentManager().beginTransaction().show(current).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, cartFragment).commit();
         getSupportFragmentManager().beginTransaction().hide(cartFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, messageFragment).commit();
         getSupportFragmentManager().beginTransaction().hide(messageFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, accountFragment).commit();
         getSupportFragmentManager().beginTransaction().hide(accountFragment).commit();
-
+        getSupportFragmentManager().beginTransaction().add(R.id.main_container,loginFragment);
+        getSupportFragmentManager().beginTransaction().hide(loginFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.main_container,registrationFragment);
+        getSupportFragmentManager().beginTransaction().hide(registrationFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.main_container, homeFragment).commit();
 
         binding.bottomNav.getOrCreateBadge(R.id.bottom_nav_message).setNumber(5);
         binding.bottomNav.setOnNavigationItemSelectedListener(item -> {
@@ -196,6 +208,23 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().remove(current).commit();
         current = homeFragment;
         getSupportFragmentManager().beginTransaction().show(current).commit();
+    }
+
+
+
+    @Override
+    public void onRegistrationSuccess() {
+        getSupportFragmentManager().beginTransaction().hide(current).commit();
+        current = loginFragment;
+        getSupportFragmentManager().beginTransaction().show(current);
+
+    }
+
+
+
+    @Override
+    public void onUserNotLoggedInListener() {
+        onRegistrationSuccess();
     }
 
 

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.LoginFragment"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/_5sdp">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/login_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Login"
+            app:navigationIcon="@drawable/ic_baseline_keyboard_backspace_24"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+    <ImageView
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:src="@drawable/dora_logo"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:errorEnabled="true">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_in_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:imeOptions="actionNext"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true"
+        >
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_in_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/remember_me"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remember me"/>
+
+    <Button
+        android:id="@+id/sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/_10sdp"/>
+</LinearLayout>
