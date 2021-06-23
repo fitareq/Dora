@@ -1,8 +1,8 @@
 package com.youthfireit.dora.constants;
 
 public class ConstantResources {
-    public static final String BASE_URL = "https://youthfireit.com/dora/api/v1/";
-    public static final String IMAGE_BASE_URL = "https://youthfireit.com/dora/";
+    public static final String BASE_URL = "https://dora.com.bd/api/v1/";
+    public static final String IMAGE_BASE_URL = "https://dora.com.bd/";
     public static final String CURRENCY_CODE = "BDT";
     public static String calculateDiscountPercentage(String old_price, String price)
     {

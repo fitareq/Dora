@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment implements
     private RecyclerView.LayoutManager productsManager, categoryManager;
     private int current = 1, last;
     List<ProductData> productDataList = new ArrayList<>();
-    private homeFragmentClickListener clickListener;
+    private final homeFragmentClickListener clickListener;
     private HomeViewModel viewModel;
 
     private BannerAdapter bannerAdapter;
@@ -90,22 +90,16 @@ public class HomeFragment extends Fragment implements
 
         loadBannerData();
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        viewModel.getProducts().observe(getViewLifecycleOwner(), new Observer<List<ProductData>>() {
-            @Override
-            public void onChanged(List<ProductData> productData) {
-                productAdapter = new ProductAdapter(productData, HomeFragment.this);
-                binding.allProductRecyclerView.setAdapter(productAdapter);
-            }
+        viewModel.getProducts().observe(getViewLifecycleOwner(), productData -> {
+            productAdapter = new ProductAdapter(productData, HomeFragment.this);
+            binding.allProductRecyclerView.setAdapter(productAdapter);
         });
 
 
 
-        viewModel.getCategories().observe(getViewLifecycleOwner(), new Observer<List<CategoriesData>>() {
-            @Override
-            public void onChanged(List<CategoriesData> categoriesData) {
-                categoriesAdapter = new CategoriesAdapter(categoriesData, HomeFragment.this);
-                binding.allCategoriesRecyclerView.setAdapter(categoriesAdapter);
-            }
+        viewModel.getCategories().observe(getViewLifecycleOwner(), categoriesData -> {
+            categoriesAdapter = new CategoriesAdapter(categoriesData, HomeFragment.this);
+            binding.allCategoriesRecyclerView.setAdapter(categoriesAdapter);
         });
 /*
 
@@ -147,7 +141,7 @@ public class HomeFragment extends Fragment implements
     private void loadBannerData() {
         APIInstance.getInstance().api().getBanners().enqueue(new Callback<BannerData>() {
             @Override
-            public void onResponse(Call<BannerData> call, Response<BannerData> response) {
+            public void onResponse(@NonNull Call<BannerData> call, @NonNull Response<BannerData> response) {
                 if (response.isSuccessful())
                     if (response.body()!=null)
                         if (response.body().getIsSuccess().equalsIgnoreCase("true"))
@@ -218,8 +212,8 @@ public class HomeFragment extends Fragment implements
 
 
     @Override
-    public void onCategoriesClickListener(String id) {
-        clickListener.categoriesClickListener(id);
+    public void onCategoriesClickListener(String id, String title) {
+        clickListener.categoriesClickListener(id, title);
     }
 
 
@@ -227,7 +221,7 @@ public class HomeFragment extends Fragment implements
     public interface homeFragmentClickListener
     {
         void productClickListener(String id);
-        void categoriesClickListener(String id);
+        void categoriesClickListener(String id, String title);
     }
 
 

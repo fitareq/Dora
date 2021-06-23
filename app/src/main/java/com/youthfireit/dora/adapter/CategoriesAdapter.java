@@ -62,7 +62,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onCategoriesClickListener(id);
+                clickListener.onCategoriesClickListener(id, title);
             }
         });
     }
@@ -100,7 +100,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     public interface categoriesClickListener {
 
 
-        void onCategoriesClickListener(String id);
+        void onCategoriesClickListener(String id, String title);
 
 
     }

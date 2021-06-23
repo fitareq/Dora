@@ -23,7 +23,7 @@ import java.util.List;
 public class CategoryWiseProductsFragment extends Fragment implements ProductAdapter.productClickListener {
 
 
-    private String categoryId;
+    private String categoryId, categoryName;
     private FragmentCategoryWiseProductsBinding binding;
     private CategoryWiseProductsViewModel viewModel;
     private ProductAdapter productAdapter;
@@ -32,9 +32,10 @@ public class CategoryWiseProductsFragment extends Fragment implements ProductAda
 
 
 
-    public CategoryWiseProductsFragment(String categoryId, CategoryWiseProductsFragmentClickListener clickListener) {
+    public CategoryWiseProductsFragment(String categoryId, String categoryName, CategoryWiseProductsFragmentClickListener clickListener) {
         // Required empty public constructor
         this.categoryId = categoryId;
+        this.categoryName = categoryName;
         this.clickListener = clickListener;
     }
 
@@ -46,6 +47,7 @@ public class CategoryWiseProductsFragment extends Fragment implements ProductAda
         // Inflate the layout for this fragment
         binding = FragmentCategoryWiseProductsBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
+        binding.categoryWiseToolbar.setTitle(categoryName);
 
         manager = new GridLayoutManager(getContext(), 2);
 

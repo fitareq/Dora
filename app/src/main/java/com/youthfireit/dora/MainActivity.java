@@ -1,16 +1,13 @@
 package com.youthfireit.dora;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.youthfireit.dora.databinding.ActivityMainBinding;
 import com.youthfireit.dora.fragments.AccountFragment;
 import com.youthfireit.dora.fragments.CartFragment;
@@ -27,14 +24,14 @@ import java.util.Deque;
 
 public class MainActivity extends AppCompatActivity
         implements HomeFragment.homeFragmentClickListener,
-                           ProductDetailsFragment.productDetailsClickListener,
-                           CategoryWiseProductsFragment.CategoryWiseProductsFragmentClickListener,
-                           RegistrationFragment.registrationEventListener,
-                AccountFragment.accountEventListener
-{
+        ProductDetailsFragment.productDetailsClickListener,
+        CategoryWiseProductsFragment.CategoryWiseProductsFragmentClickListener,
+        RegistrationFragment.registrationEventListener,
+        AccountFragment.accountEventListener {
 
 
     private ActivityMainBinding binding;
+    private Deque<Fragment> deque = new ArrayDeque<>();
     private Fragment current, previous;
 
     private HomeFragment homeFragment = new HomeFragment(this);
@@ -50,8 +47,6 @@ public class MainActivity extends AppCompatActivity
     private final int NAV_ACCOUNT = R.id.bottom_nav_account;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -65,9 +60,12 @@ public class MainActivity extends AppCompatActivity
         binding.homeToolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         current = homeFragment;
+        deque.add(current);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-       // getSupportFragmentManager().beginTransaction().show(current).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.main_container, cartFragment).commit();
+        // getSupportFragmentManager().beginTransaction().show(current).commit();
+        /*getSupportFragmentManager().beginTransaction().add(R.id.main_container, cartFragment).commit();
         getSupportFragmentManager().beginTransaction().hide(cartFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, messageFragment).commit();
         getSupportFragmentManager().beginTransaction().hide(messageFragment).commit();
@@ -76,8 +74,9 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().add(R.id.main_container,loginFragment);
         getSupportFragmentManager().beginTransaction().hide(loginFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.main_container,registrationFragment);
-        getSupportFragmentManager().beginTransaction().hide(registrationFragment).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.main_container, homeFragment).commit();
+        getSupportFragmentManager().beginTransaction().hide(registrationFragment).commit();*/
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, homeFragment).addToBackStack(null).commit();
+
 
         binding.bottomNav.getOrCreateBadge(R.id.bottom_nav_message).setNumber(5);
         binding.bottomNav.setOnNavigationItemSelectedListener(item -> {
@@ -85,6 +84,11 @@ public class MainActivity extends AppCompatActivity
 
             switch (item.getItemId()) {
                 case NAV_HOME:
+
+                    if (!deque.contains(homeFragment)) {
+                        getSupportFragmentManager().beginTransaction().add(R.id.main_container, homeFragment).addToBackStack(null).commit();
+                        deque.push(homeFragment);
+                    }
 
                     if (!current.equals(homeFragment)) {
                         getSupportFragmentManager().beginTransaction().hide(current).commit();
@@ -96,6 +100,11 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
                 case NAV_CART:
+
+                    if (!deque.contains(cartFragment)) {
+                        getSupportFragmentManager().beginTransaction().add(R.id.main_container, cartFragment).addToBackStack(null).commit();
+                        deque.push(cartFragment);
+                    }
                     if (!current.equals(cartFragment)) {
 
                         getSupportFragmentManager().beginTransaction().hide(current).commit();
@@ -109,6 +118,10 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
                 case NAV_MESSAGE:
+                    if (!deque.contains(messageFragment)) {
+                        getSupportFragmentManager().beginTransaction().add(R.id.main_container, messageFragment).addToBackStack(null).commit();
+                        deque.push(messageFragment);
+                    }
                     if (!current.equals(messageFragment)) {
                         getSupportFragmentManager().beginTransaction().hide(current).commit();
                         current = messageFragment;
@@ -121,6 +134,10 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
                 case NAV_ACCOUNT:
+                    if (!deque.contains(accountFragment)) {
+                        getSupportFragmentManager().beginTransaction().add(R.id.main_container, accountFragment).addToBackStack(null).commit();
+                        deque.push(accountFragment);
+                    }
                     if (!current.equals(accountFragment)) {
                         getSupportFragmentManager().beginTransaction().hide(current).commit();
                         current = accountFragment;
@@ -140,7 +157,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void productClickListener(String id) {
 
@@ -154,19 +170,18 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
-    public void categoriesClickListener(String id) {
+    public void categoriesClickListener(String id, String title) {
 
         binding.bottomNav.setVisibility(View.VISIBLE);
         binding.toolbarLayout.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().hide(current).commit();
-        current = new CategoryWiseProductsFragment(id, this);
+        current = new CategoryWiseProductsFragment(id, title, this);
+        deque.push(current);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.main_container, current)
                 .commit();
     }
-
 
 
     @Override
@@ -182,7 +197,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void onRelatedProductClickListener(String id) {
 
@@ -194,13 +208,11 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void categoryWiseProductClickListener(String id) {
 
         productClickListener(id);
     }
-
 
 
     @Override
@@ -209,7 +221,6 @@ public class MainActivity extends AppCompatActivity
         current = homeFragment;
         getSupportFragmentManager().beginTransaction().show(current).commit();
     }
-
 
 
     @Override
@@ -221,13 +232,35 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void onUserNotLoggedInListener() {
         onRegistrationSuccess();
     }
 
 
+    @Override
+    public void onBackPressed() {
+
+        current = deque.peek();
+        if (current == homeFragment)
+            finish();
+        else {
+            getSupportFragmentManager().beginTransaction().hide(current).commit();
+            getSupportFragmentManager().beginTransaction().remove(current).commit();
+            deque.pop();
+            current = deque.peek();
+            getSupportFragmentManager().beginTransaction().show(current).commit();
+            if (current==homeFragment)
+                binding.bottomNav.setSelectedItemId(NAV_HOME);
+            else if (current==cartFragment)
+                binding.bottomNav.setSelectedItemId(NAV_CART);
+            else if (current==messageFragment)
+                binding.bottomNav.setSelectedItemId(NAV_MESSAGE);
+            else if (current==accountFragment)
+                binding.bottomNav.setSelectedItemId(NAV_ACCOUNT);
+        }
 
 
+        //super.onBackPressed();
+    }
 }
